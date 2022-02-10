@@ -25,6 +25,7 @@ const Header = () => {
     router.push("/");
   };
   const navigation = [
+    { name: "ホーム", href: "/main-page", current: false },
     { name: "会社情報", href: "/company-page", current: false },
     { name: "事業所情報", href: "#", current: false },
     { name: "ログアウト", href: "#", current: false, onClick: logout },
