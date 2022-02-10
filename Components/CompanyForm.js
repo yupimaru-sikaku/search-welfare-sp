@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import { StateContext } from "../context/StateContext";
 import Cookie from "universal-cookie";
+import { useEffect } from "react";
 
 const cookie = new Cookie();
 
 const CompanyForm = ({ companyCreated }) => {
   const { selectedCompany, setSelectedCompany } = useContext(StateContext);
 
-  let a = Math.random().toString(32).substring(2)
-  
+  let a = Math.random().toString(32).substring(2);
+
   const create = async (e) => {
     e.preventDefault();
     await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/companies/`, {

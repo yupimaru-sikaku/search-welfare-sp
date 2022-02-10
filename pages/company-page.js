@@ -5,6 +5,7 @@ import StateContextProvider from "../context/StateContext";
 import { useEffect } from "react";
 import useSWR from "swr";
 import CompanyForm from "../Components/CompanyForm";
+import CompanySearchForm from "../Components/CompanySearchForm";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-company/`;
@@ -28,7 +29,8 @@ const CompanyPage = ({ staticfilterdCompanies }) => {
         <div className="text-center">
           <p>法人一覧</p>
         </div>
-        <CompanyForm companyCreated={mutate} />
+        <CompanySearchForm />
+        {/* <CompanyForm companyCreated={mutate} />
         <div>
           {filteredCompanies &&
             filteredCompanies.map((company) => (
@@ -38,7 +40,7 @@ const CompanyPage = ({ staticfilterdCompanies }) => {
                 companyDeleted={mutate}
               />
             ))}
-        </div>
+        </div> */}
       </Layout>
     </StateContextProvider>
   );
