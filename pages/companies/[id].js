@@ -48,7 +48,7 @@ const Comapny = ({ staticComapny, statticOffice, id }) => {
             </ul>
           ))
         ) : (
-          <p>事業所はありません</p>
+          <p>事業所はありませんね</p>
         )}
         <Link href="/company-page">
           <span className="block p-5 cursor-pointer hover:text-gray-500">
