@@ -1,4 +1,8 @@
-import { getAllCompanyIds, getCompanyData } from "../../lib/companies";
+import {
+  getAllCompanyIds,
+  getCompanyData,
+  getOfficeCompanyListData,
+} from "../../lib/companies";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Layout from "../../Components/Layout";
@@ -7,7 +11,7 @@ import Link from "next/link";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const Comapny = ({ staticComapny, id }) => {
+const Comapny = ({ staticComapny, statticOffice, id }) => {
   const router = useRouter();
   const { data: company, mutate } = useSWR(
     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-company/${id}`,
@@ -26,17 +30,32 @@ const Comapny = ({ staticComapny, id }) => {
 
   return (
     <Layout title={staticComapny.companyName}>
-      <div>{staticComapny.companyName}</div>
-      <div>{staticComapny.companyName}</div>
-      <div>{staticComapny.postalCode}</div>
-      <div>{staticComapny.address}</div>
-      <div>{staticComapny.telephoneNumber}</div>
-      <div>{staticComapny.faxNumber}</div>
-      <div>{staticComapny.email}</div>
-      <div>{staticComapny.humanName}</div>
-      <Link href="/company-page">
-        <span>会社情報一覧に戻る</span>
-      </Link>
+      <div className="text-center p-10 text-2xl">
+        <p className="p-5 text-white">{staticComapny.companyName}の情報</p>
+        <ul>
+          <li className="p-5">{`〒${staticComapny.postalCode}`}</li>
+          <li className="p-5">{`住所${staticComapny.address}`}</li>
+          <li className="p-5">{`TEL:${staticComapny.telephoneNumber}`}</li>
+          <li className="p-5">{`FAX：${staticComapny.faxNumber}`}</li>
+          <li className="p-5">{`メールアドレス：${staticComapny.email}`}</li>
+          <li className="p-5">{`代表者：${staticComapny.humanName}`}</li>
+        </ul>
+        <p>事業所情報</p>
+        {statticOffice.length ? (
+          statticOffice.map((office) => (
+            <ul>
+              <li>{office.officeName}</li>
+            </ul>
+          ))
+        ) : (
+          <p>事業所はありません</p>
+        )}
+        <Link href="/company-page">
+          <span className="block p-5 cursor-pointer hover:text-gray-500">
+            会社情報一覧に戻る
+          </span>
+        </Link>
+      </div>
     </Layout>
   );
 };
@@ -51,10 +70,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const staticComapny = await getCompanyData(params.id);
+  const statticOffice = await getOfficeCompanyListData(params.id);
   return {
     props: {
       id: staticComapny.id,
       staticComapny,
+      statticOffice,
     },
     revalidate: 3,
   };
