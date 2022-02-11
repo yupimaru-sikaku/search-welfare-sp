@@ -43,8 +43,8 @@ const Comapny = ({ staticComapny, statticOffice, id }) => {
         <p>事業所情報</p>
         {statticOffice.length ? (
           statticOffice.map((office) => (
-            <ul>
-              <li key={office.id}>{office.officeName}</li>
+            <ul key={office.officeName}>
+              <li>{office.officeName}</li>
             </ul>
           ))
         ) : (
