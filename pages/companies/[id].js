@@ -44,7 +44,7 @@ const Comapny = ({ staticComapny, statticOffice, id }) => {
         {statticOffice.length ? (
           statticOffice.map((office) => (
             <ul>
-              <li>{office.officeName}</li>
+              <li key={office.id}>{office.officeName}</li>
             </ul>
           ))
         ) : (
