@@ -65,7 +65,10 @@ const Comapny = ({ id, staticComapny, staticOffice }) => {
                   <li className="p-1">{`定員：${office.capacity}`}</li>
                 </ul>
               </div>
-              <ServiceOffice officeId={office.id} officeName={office.officeName} />
+              <ServiceOffice
+                officeId={office.id}
+                officeName={office.officeName}
+              />
             </div>
           ))
         ) : (
