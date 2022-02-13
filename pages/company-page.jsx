@@ -1,7 +1,8 @@
 import Layout from "../Components/Layout";
 import CompanySearchForm from "../Components/CompanySearchForm";
+import { getAllCompanyData } from "../lib/companies";
 
-const CompanyPage = () => {
+const CompanyPage = ({ companyList }) => {
   return (
     <Layout title="法人一覧">
       <div className="text-center p-10 text-2xl text-white">
@@ -13,3 +14,12 @@ const CompanyPage = () => {
 };
 
 export default CompanyPage;
+
+export async function getStaticProps() {
+  const companyList = await getAllCompanyData();
+
+  return {
+    props: { companyList },
+    revalidate: 3,
+  };
+}
