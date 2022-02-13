@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { searchCompanyData } from "../lib/companies";
 import Link from "next/link";
-import { getAllCompanyData } from "../lib/companies";
 
 const companySearchForm = () => {
   const [searchWord, setSearchWord] = useState("");

@@ -1,7 +1,7 @@
 import Layout from "../Components/Layout";
 import CompanySearchForm from "../Components/CompanySearchForm";
 
-const CompanyPage = ({ staticfilterdCompanies }) => {
+const CompanyPage = () => {
   return (
     <Layout title="法人一覧">
       <div className="text-center p-10 text-2xl text-white">
