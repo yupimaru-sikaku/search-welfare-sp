@@ -8,7 +8,7 @@ import { ServiceOffice } from "../../Components/ServiceOffice";
 import Link from "next/link";
 import { ClipBoard } from "../../Components/ClipBoard";
 
-const Comapny = ({ id, staticComapny, staticOffice }) => {
+const Comapny = ({ staticComapny, staticOffice }) => {
   return (
     <Layout title={staticComapny.companyName}>
       <div className="text-center p-10 text-xl">
