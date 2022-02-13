@@ -3,15 +3,18 @@ import { searchCompanyData } from "../lib/companies";
 import Link from "next/link";
 import { getAllCompanyData } from "../lib/companies";
 
-const companySearchForm = ({ staticfilterdCompanies }) => {
+const companySearchForm = ({ comapnyList }) => {
   const [searchWord, setSearchWord] = useState("");
   const [searchedCompanyList, setSearchedCompanyList] = useState([]);
+  console.log(comapnyList);
 
-  useEffect(async () => {
-    let searchedCompanyList = await searchCompanyData(searchWord);
-    setSearchedCompanyList(searchedCompanyList);
+  useEffect(() => {
+    const fetch = async () => {
+      let searchedCompanyList = await searchCompanyData(searchWord);
+      setSearchedCompanyList(searchedCompanyList);
+    };
+    fetch();
   }, [searchWord]);
-
 
   return (
     <div className="text-center">
@@ -38,15 +41,15 @@ const companySearchForm = ({ staticfilterdCompanies }) => {
   );
 };
 
-// export async function getStaticProps() {
-//   const staticfilterdCompanies = await getAllCompanyData();
+export async function getStaticProps() {
+  const comapnyList = await getAllCompanyData();
 
-//   return {
-//     props: {
-//       staticfilterdCompanies,
-//     },
-//     revalidate: 3,
-//   };
-// }
+  return {
+    props: {
+      comapnyList,
+    },
+    revalidate: 3,
+  };
+}
 
 export default companySearchForm;

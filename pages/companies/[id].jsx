@@ -2,34 +2,13 @@ import {
   getAllCompanyIds,
   getCompanyData,
   getOfficeCompanyListData,
-  getServiceOfficeListData,
 } from "../../lib/companies";
-import { useRouter } from "next/router";
-import useSWR from "swr";
 import Layout from "../../Components/Layout";
 import { ServiceOffice } from "../../Components/ServiceOffice";
-import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { ClipBoard } from "../../Components/ClipBoard";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
 const Comapny = ({ id, staticComapny, staticOffice }) => {
-  const router = useRouter();
-  const { data: company, mutate } = useSWR(
-    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-company/${id}`,
-    fetcher,
-    {
-      fallbackData: staticComapny,
-    }
-  );
-  useEffect(() => {
-    mutate();
-  }, []);
-
-  if (router.isFallback || !company) {
-    return <div>Loading...</div>;
-  }
   return (
     <Layout title={staticComapny.companyName}>
       <div className="text-center p-10 text-xl">

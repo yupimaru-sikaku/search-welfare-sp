@@ -23,7 +23,7 @@ export function ServiceOffice({ officeId, officeName }) {
     <div className="m-5">
       {serviceList ? (
         serviceList.map((service, index) => (
-          <div className="m-10" key={service.serviceNumber}>
+          <div className="m-10" key={index}>
             <p className="text-white">{`${officeName}の提供サービス-${index + 1}`}</p>
             <ul>
               <li>{`事業所番号：${service.officeNumber}`}</li>
