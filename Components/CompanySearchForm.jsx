@@ -3,10 +3,9 @@ import { searchCompanyData } from "../lib/companies";
 import Link from "next/link";
 import { getAllCompanyData } from "../lib/companies";
 
-const companySearchForm = ({ comapnyList }) => {
+const companySearchForm = () => {
   const [searchWord, setSearchWord] = useState("");
   const [searchedCompanyList, setSearchedCompanyList] = useState([]);
-  console.log(comapnyList);
 
   useEffect(() => {
     const fetch = async () => {
@@ -40,16 +39,5 @@ const companySearchForm = ({ comapnyList }) => {
     </div>
   );
 };
-
-export async function getStaticProps() {
-  const comapnyList = await getAllCompanyData();
-
-  return {
-    props: {
-      comapnyList,
-    },
-    revalidate: 3,
-  };
-}
 
 export default companySearchForm;
