@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 import Image from "next/image";
 
 const Layout = ({ children, title = "デフォルトページ" }) => {

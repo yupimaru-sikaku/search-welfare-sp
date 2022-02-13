@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { searchCompanyData } from "../lib/companies";
 import Link from "next/link";
 import { getAllCompanyData } from "../lib/companies";
@@ -11,6 +11,7 @@ const companySearchForm = ({ staticfilterdCompanies }) => {
     let searchedCompanyList = await searchCompanyData(searchWord);
     setSearchedCompanyList(searchedCompanyList);
   }, [searchWord]);
+
 
   return (
     <div className="text-center">
