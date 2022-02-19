@@ -16,7 +16,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Header = () => {
+export const MainHeader = () => {
   const router = useRouter();
 
   const logout = (e) => {
@@ -25,8 +25,8 @@ const Header = () => {
     router.push("/");
   };
   const navigation = [
-    { name: "ホーム", href: "/main-page", current: false },
-    { name: "会社情報", href: "/company-page", current: false },
+    { name: "ホーム", href: "/", current: false },
+    { name: "会社情報", href: "/companies", current: false },
     { name: "事業所情報", href: "#", current: false },
     { name: "ログアウト", href: "#", current: false, onClick: logout },
   ];
@@ -184,5 +184,3 @@ const Header = () => {
     </Disclosure>
   );
 };
-
-export default Header;

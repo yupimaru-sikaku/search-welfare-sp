@@ -1,13 +1,8 @@
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 import Cookie from "universal-cookie";
-import { useEffect } from "react";
 
 const cookie = new Cookie();
 
-const CompanyForm = ({ companyCreated }) => {
-  const { selectedCompany, setSelectedCompany } = useContext(StateContext);
-
+export const CompanyForm = ({ companyCreated }) => {
   let a = Math.random().toString(32).substring(2);
 
   const create = async (e) => {
@@ -95,5 +90,3 @@ const CompanyForm = ({ companyCreated }) => {
     </div>
   );
 };
-
-export default CompanyForm;

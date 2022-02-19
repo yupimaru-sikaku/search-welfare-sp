@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
-import { FlashMessge } from "../Components/FlashMessge";
+import { FlashMessge } from "src/components/FlashMessge";
 
-export function ClipBoard({ copyWord }) {
+export const ClipBoard = ({ copyWord }) => {
   const [isCopy, setIsCopy] = useState(false);
   const copy = useCallback(async (copyWord) => {
     try {
@@ -16,7 +16,7 @@ export function ClipBoard({ copyWord }) {
   }, []);
 
   return (
-    <>
+    <div className="">
       <svg
         onClick={() => copy(copyWord)}
         xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +33,6 @@ export function ClipBoard({ copyWord }) {
         />
       </svg>
       {isCopy && <FlashMessge isCopy={isCopy} />}
-    </>
+    </div>
   );
 }

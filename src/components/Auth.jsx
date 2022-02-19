@@ -5,7 +5,7 @@ import Cookie from "universal-cookie";
 
 const cookie = new Cookie();
 
-export default function Example() {
+export const Auth = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -166,4 +166,4 @@ export default function Example() {
       </div>
     </div>
   );
-}
+};

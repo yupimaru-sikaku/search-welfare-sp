@@ -1,10 +1,10 @@
-export function FlashMessge({ isCopy }) {
+export const FlashMessge = ({ isCopy }) => {
   return (
     <>
       {isCopy ? (
-        <div className="text-white">
+        <span className="text-white">
             Copied
-        </div>
+        </span>
       ) : (
         <></>
       )}

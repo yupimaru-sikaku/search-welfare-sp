@@ -9,7 +9,7 @@ const fetcher = async (...args) => {
   return json;
 };
 
-export function ServiceOffice({ officeId, officeName }) {
+export const ServiceOffice = ({ officeId, officeName }) => {
   const { data: serviceList, error } = useSWR(
     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-service-office/?office=${officeId}`,
     fetcher
@@ -24,7 +24,9 @@ export function ServiceOffice({ officeId, officeName }) {
       {serviceList ? (
         serviceList.map((service, index) => (
           <div className="m-10" key={index}>
-            <p className="text-white">{`${officeName}の提供サービス-${index + 1}`}</p>
+            <p className="text-white">{`${officeName}の提供サービス-${
+              index + 1
+            }`}</p>
             <ul>
               <li>{`事業所番号：${service.officeNumber}`}</li>
               <li>{`サービス種別：${service.serviceType}`}</li>
@@ -36,4 +38,4 @@ export function ServiceOffice({ officeId, officeName }) {
       )}
     </div>
   );
-}
+};

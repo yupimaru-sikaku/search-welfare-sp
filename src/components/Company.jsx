@@ -1,12 +1,9 @@
 import Link from "next/link";
 import Cookie from "universal-cookie";
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 
 const cookie = new Cookie();
 
-const Company = ({ company, companyDeleted }) => {
-  const { setSelectedCompany } = useContext(StateContext);
+export const Company = ({ company, companyDeleted }) => {
   const deleteCompany = async () => {
     await fetch(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/companies/${company.id}`,
@@ -65,5 +62,3 @@ const Company = ({ company, companyDeleted }) => {
     </div>
   );
 };
-
-export default Company;
