@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 export const useCompanyList = () => {
   const { data, error } = useSWR(

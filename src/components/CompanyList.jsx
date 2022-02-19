@@ -1,25 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { searchCompanyData } from "src/hooks/companies";
 import Link from "next/link";
+import { useFetchArray } from "src/hooks/useFetchArray";
 
-export const getStaticProps = async () => {
-  const COMPANY_LIST_API = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-company`;
-  const res = await fetch(COMPANY_LIST_API);
-  const companyListData = await res.json();
+export const CompanyList = () => {
+  const { data, error, isLoading, isEmpty } = useFetchArray(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-company`
+  );
 
-  return {
-    props: {
-      fallback: {
-        [COMPANY_LIST_API]: companyListData,
-      },
-    },
-  };
-};
-
-export const CompanyList = (props) => {
-  console.log(props);
   const [searchWord, setSearchWord] = useState("");
-  const [searchedCompanyList, setSearchedCompanyList] = useState([]);
+  const [searchedCompanyList, setSearchedCompanyList] = useState(data);
 
   useEffect(() => {
     const fetch = async () => {
@@ -28,6 +18,20 @@ export const CompanyList = (props) => {
     };
     fetch();
   }, [searchWord]);
+
+  if (error) {
+    return (
+      <div className="text-center">
+        エラーが発生したため、データの取得に失敗しました
+      </div>
+    );
+  }
+  if (isLoading) {
+    return <div className="text-center">ローディンク中</div>;
+  }
+  if (isEmpty) {
+    return <div className="text-center">データは空です</div>;
+  }
 
   return (
     <div className="text-center">
