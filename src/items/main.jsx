@@ -1,6 +1,6 @@
 export const ITEM_LIST = [
   {
-    href: "/companies",
+    href: "/company",
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

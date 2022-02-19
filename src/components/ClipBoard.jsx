@@ -16,7 +16,7 @@ export const ClipBoard = ({ copyWord }) => {
   }, []);
 
   return (
-    <div className="">
+    <div className="relative">
       <svg
         onClick={() => copy(copyWord)}
         xmlns="http://www.w3.org/2000/svg"

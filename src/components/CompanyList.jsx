@@ -47,7 +47,7 @@ export const CompanyList = () => {
       <div>
         {searchedCompanyList &&
           searchedCompanyList.map((company) => (
-            <Link href={`/companies/${company.id}`} key={company.id}>
+            <Link href={`/company/${company.id}`} key={company.id}>
               <p className="cursor-pointer hover:text-gray-500 p-5">
                 {company.companyName}
               </p>

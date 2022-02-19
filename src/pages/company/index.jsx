@@ -13,7 +13,7 @@ export const getStaticProps = async () => {
         [COMPANY_LIST_API]: companyListData,
       },
     },
-    revalidate: 1,
+    revalidate: 5,
   };
 };
 
