@@ -1,10 +1,12 @@
 import { Layout } from "src/layouts/Layout";
 import Link from "next/link";
 import { ITEM_LIST } from "src/items/main";
+import { Auth } from "src/components/Auth";
 
 const Home = () => {
   return (
     <Layout title={"メインページ"}>
+      <Auth />
       <div className="container px-6 py-10 m-auto">
         <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
           {ITEM_LIST.map((item) => {

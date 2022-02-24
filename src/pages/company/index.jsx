@@ -1,5 +1,5 @@
 import { Layout } from "src/layouts/Layout";
-import { CompanyList } from "src/components/CompanyList";
+import { CompanyList } from "src/components/Company/CompanyList";
 import { SWRConfig } from "swr";
 
 export const getStaticProps = async () => {

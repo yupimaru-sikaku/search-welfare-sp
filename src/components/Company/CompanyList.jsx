@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { searchCompanyData } from "src/hooks/companies";
+import { useState, useEffect } from "react";
+import { searchCompanyData } from "src/hooks/company";
 import Link from "next/link";
 import { useFetchArray } from "src/hooks/useFetchArray";
 

@@ -34,7 +34,7 @@ export const Auth = () => {
           const options = { path: "/" };
           cookie.set("access_token", data.access, options);
         });
-      router.push("/main-page");
+      router.push("/");
     } catch (err) {
       alert(err);
     }

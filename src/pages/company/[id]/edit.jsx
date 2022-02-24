@@ -1,7 +1,6 @@
 import { Layout } from "src/layouts/Layout";
-import Link from "next/link";
 import { SWRConfig } from "swr";
-import { CompanyDetail } from "src/components/Company/CompanyDetail";
+import { CompanyEdit } from "src/components/Company/CompanyEdit";
 
 export const getStaticPaths = async () => {
   const res = await fetch(
@@ -27,36 +26,25 @@ export const getStaticProps = async (ctx) => {
   }
   const companyData = await company.json();
 
-  const OFFICE_LIST_API_URL = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-office-company/?company=${id}`;
-  const officeList = await fetch(OFFICE_LIST_API_URL);
-  const officeListData = await officeList.json();
-
   return {
     props: {
       fallback: {
         [COMPANY_API_URL]: companyData,
-        [OFFICE_LIST_API_URL]: officeListData,
       },
-      companyData,
     },
     revalidate: 5,
   };
 };
 
-const CompanyId = (props) => {
+const CompanyIdEdit = (props) => {
   const { fallback } = props;
   return (
-    <Layout title={props.companyData.companyName}>
+    <Layout title="編集画面">
       <SWRConfig value={{ fallback }}>
-        <CompanyDetail />
+        <CompanyEdit />
       </SWRConfig>
-      <Link href="/company">
-        <span className="block text-center text-white p-5 cursor-pointer hover:text-gray-500">
-          会社情報一覧に戻る
-        </span>
-      </Link>
     </Layout>
   );
 };
 
-export default CompanyId;
+export default CompanyIdEdit;

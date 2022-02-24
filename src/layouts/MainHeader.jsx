@@ -27,7 +27,7 @@ export const MainHeader = () => {
   const navigation = [
     { name: "ホーム", href: "/", current: false },
     { name: "会社情報", href: "/company", current: false },
-    { name: "事業所情報", href: "#", current: false },
+    { name: "事業所情報", href: "/office", current: false },
     { name: "ログアウト", href: "#", current: false, onClick: logout },
   ];
 
