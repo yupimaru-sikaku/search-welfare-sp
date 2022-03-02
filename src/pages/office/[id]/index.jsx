@@ -2,6 +2,7 @@ import { Layout } from "src/layouts/Layout";
 import Link from "next/link";
 import { SWRConfig } from "swr";
 import { OfficeDetail } from "src/components/Office/OfficeDetail";
+import { ServiceOfficeList } from "src/components/Service/ServiceOfficeList";
 
 export const getStaticPaths = async () => {
   const res = await fetch(
@@ -49,9 +50,13 @@ const OfficeId = (props) => {
     <Layout title={props.officeData.officeName}>
       <SWRConfig value={{ fallback }}>
         <OfficeDetail />
+        <ServiceOfficeList />
       </SWRConfig>
+      <Link href={`/office/${props.officeData.id}/serviceOfficeCreate`}>
+        <a>サービスを追加する</a>
+      </Link>
       <Link href="/office">
-        <span className="block text-center text-white p-5 cursor-pointer hover:text-gray-500">
+        <span className="block text-center text-white mt-10 p-5 cursor-pointer hover:text-gray-500">
           事業所情報一覧に戻る
         </span>
       </Link>

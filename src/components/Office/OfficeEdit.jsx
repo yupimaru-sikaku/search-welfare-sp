@@ -25,7 +25,6 @@ export const OfficeEdit = () => {
   const [humanName, setHumanName] = useState(officeData.humanName);
   const [capacity, setCapacity] = useState(officeData.capacity);
 
-  console.log(officeData);
   const handleUpdate = async () => {
     await fetch(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/offices/${officeData.id}/`,
@@ -203,25 +202,6 @@ export const OfficeEdit = () => {
                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={humanName}
                           onChange={(e) => setHumanName(e.target.value)}
-                          required
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="font-medium text-gray-800">定員</div>
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="relative z-0 w-full group">
-                        <input
-                          type="text"
-                          name="capacity"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                          value={capacity}
-                          onChange={(e) => setCapacity(e.target.value)}
                           required
                         />
                       </div>

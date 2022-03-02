@@ -111,9 +111,6 @@ export const CompanyEdit = () => {
                         />
                       </div>
                     </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
-                    </td>
                   </tr>
                   <tr>
                     <td className="p-2 whitespace-nowrap">
@@ -134,9 +131,6 @@ export const CompanyEdit = () => {
                         />
                       </div>
                     </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
-                    </td>
                   </tr>
                   <tr>
                     <td className="p-2 whitespace-nowrap">
@@ -155,9 +149,6 @@ export const CompanyEdit = () => {
                           required
                         />
                       </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
                     </td>
                   </tr>
                   <tr>
@@ -178,9 +169,6 @@ export const CompanyEdit = () => {
                         />
                       </div>
                     </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
-                    </td>
                   </tr>
                   <tr>
                     <td className="p-2 whitespace-nowrap">
@@ -199,9 +187,6 @@ export const CompanyEdit = () => {
                           maxLength={11}
                         />
                       </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
                     </td>
                   </tr>
                   <tr>
@@ -224,9 +209,6 @@ export const CompanyEdit = () => {
                         />
                       </div>
                     </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
-                    </td>
                   </tr>
                   <tr>
                     <td className="p-2 whitespace-nowrap">
@@ -245,9 +227,6 @@ export const CompanyEdit = () => {
                           required
                         />
                       </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center"></div>
                     </td>
                   </tr>
                 </tbody>

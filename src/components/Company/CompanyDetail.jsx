@@ -55,7 +55,7 @@ export const CompanyDetail = () => {
 
   return (
     <>
-      <section className="antialiased text-gray-600 h-screen px-4">
+      <section className="antialiased text-gray-600 py-20 px-3 md:p-20">
         <div className="flex flex-col justify-center h-full">
           <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-xl border border-gray-200">
             <header className="flex px-5 py-4 border-b border-gray-100">

@@ -16,17 +16,6 @@ export const OfficeDetail = () => {
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-office/${router.query.id}`
       : null
   );
-  //   // 事業所情報データ取得
-  //   const {
-  //     data: officeListData,
-  //     error: officeListError,
-  //     isEmpty: officeIsEmpty,
-  //     isLoading: officeIsLoading,
-  //   } = useFetchArray(
-  //     router.query.id
-  //       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-office-company/?company=${router.query.id}`
-  //       : null
-  //   );
 
   // 削除確認画面
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +31,7 @@ export const OfficeDetail = () => {
       }
     ).then((res) => {
       if (res.status === 401) {
-        alert("JWT Token not valid");
+        alert("ログイン後に実施してください");
       }
     });
     setShowModal(false);
@@ -55,7 +44,7 @@ export const OfficeDetail = () => {
 
   return (
     <>
-      <section className="antialiased text-gray-600 h-screen px-4">
+      <section className="antialiased text-gray-600 px-5 py-20 pb-5">
         <div className="flex flex-col justify-center h-full">
           <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-xl border border-gray-200">
             <header className="flex px-5 py-4 border-b border-gray-100">
@@ -201,59 +190,11 @@ export const OfficeDetail = () => {
                         </div>
                       </td>
                     </tr>
-                    <tr>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="font-medium text-gray-800">定員</div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{officeData.capacity}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">
-                          <ClipBoard copyWord={officeData.capacity} />
-                        </div>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          {/* <div className="w-full max-w-2xl mx-auto mt-10 text-start">
-            {officeIsLoading ? (
-              <div className="text-white">読み込み中</div>
-            ) : officeIsEmpty ? (
-              <div className="text-white text-center m-10">
-                事業所はありません
-              </div>
-            ) : (
-              <div className="text-white">
-                {officeListData.map((office) => {
-                  return (
-                    <Link href={`/office/${office.id}`} key={office.id}>
-                      <div className="m-1 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-orange-900 text-white rounded-full cursor-pointer hover:bg-orange-700">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          className="feather feather-arrow-right mr-2"
-                        >
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                        {office.officeName}
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div> */}
         </div>
       </section>
       {showModal ? (

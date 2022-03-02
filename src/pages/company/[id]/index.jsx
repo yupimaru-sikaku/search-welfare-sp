@@ -50,10 +50,11 @@ const CompanyId = (props) => {
       <SWRConfig value={{ fallback }}>
         <CompanyDetail />
       </SWRConfig>
+      <Link href={`/company/${props.companyData.id}/officeCompanyCreate`}><a>事業所を作成する</a></Link>
       <Link href="/company">
-        <span className="block text-center text-white p-5 cursor-pointer hover:text-gray-500">
+        <a className="block text-center text-white p-5 cursor-pointer hover:text-gray-500">
           会社情報一覧に戻る
-        </span>
+        </a>
       </Link>
     </Layout>
   );
