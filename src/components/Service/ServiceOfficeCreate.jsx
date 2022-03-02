@@ -44,22 +44,22 @@ export const ServiceOfficeCreate = () => {
           <div className="md:flex md:items-center mb-6">
             {officeIsLoading ? (
               <>
-              <div className="md:w-1/5">
-                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                関連事業所
-                </label>
-              </div>
-              <div className="md:w-2/3">
-                <div class="border border-blue-300 shadow rounded-md p-4 w-full mx-auto">
-                  <div class="animate-pulse flex">
-                    <div class="flex-1 space-y-6">
-                      <div class="h-1.5 bg-slate-200 rounded"></div>
+                <div className="md:w-1/5">
+                  <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                    関連事業所
+                  </label>
+                </div>
+                <div className="md:w-2/3">
+                  <div className="border border-blue-300 shadow rounded-md p-4 w-full mx-auto">
+                    <div className="animate-pulse flex">
+                      <div className="flex-1 space-y-6">
+                        <div className="h-1.5 bg-slate-200 rounded"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ) : (
+              </>
+            ) : (
               <>
                 <div className="md:w-1/5">
                   <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
@@ -89,7 +89,7 @@ export const ServiceOfficeCreate = () => {
                 name="serviceType"
                 control={control}
                 render={({ field }) => (
-                    <Select
+                  <Select
                     {...field}
                     options={SERVICE_LIST}
                     instanceId="selectbox"

@@ -45,10 +45,10 @@ export const OfficeCompanyCreate = () => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  <div class="border border-blue-300 shadow rounded-md p-4 w-full mx-auto">
-                    <div class="animate-pulse flex">
-                      <div class="flex-1 space-y-6">
-                        <div class="h-1.5 bg-slate-200 rounded"></div>
+                  <div className="border border-blue-300 shadow rounded-md p-4 w-full mx-auto">
+                    <div className="animate-pulse flex">
+                      <div className="flex-1 space-y-6">
+                        <div className="h-1.5 bg-slate-200 rounded"></div>
                       </div>
                     </div>
                   </div>
