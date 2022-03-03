@@ -57,7 +57,7 @@ const CompanyId = (props) => {
       </Link>
 
       <Link href="/company">
-        <a class="border mt-10 mx-auto w-48 border-gray-600 block rounded-lg font-bold py-4 px-6 flex items-center text-white bg-gray-500 hover:text-white hover:bg-transparent">
+        <a className="border mt-10 mx-auto w-48 border-gray-600 block rounded-lg font-bold py-4 px-6 flex items-center text-white bg-gray-500 hover:text-white hover:bg-transparent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
