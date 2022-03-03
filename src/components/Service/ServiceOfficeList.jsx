@@ -5,6 +5,7 @@ import { ClipBoard } from "src/components/ClipBoard";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import Cookie from "universal-cookie";
+import { usePromiseToast } from "src/hooks/usePromiseToast";
 
 const cookie = new Cookie();
 
@@ -26,12 +27,19 @@ export const ServiceOfficeList = () => {
   // 削除確認画面
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const handleClick = async () => {
+    await promiseToast(handleDelete());
+  };
+  const { promiseToast, Toaster } = usePromiseToast();
 
   const handleOpen = useCallback(() => {
     setShowModal(true);
   }, []);
 
   const handleDelete = async () => {
+    setIsLoading(true);
+
     await fetch(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/services/${deleteId}`,
       {
@@ -42,14 +50,20 @@ export const ServiceOfficeList = () => {
         },
       }
     ).then((res) => {
-      if (res.status === 401) {
-        alert("JWT Token not valid");
+      if (res.ok) {
+        router.push(`/office/${router.query.id}`);
+        mutate();
+        setShowModal(false);
+        setIsLoading(false);
+        return new Promise((resolve, reject) => resolve("登録に成功しました"));
+      } else if (res.status === 401) {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("ログインしてください"));
+      } else {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("登録に失敗しました"));
       }
     });
-    mutate();
-    router.push(`/office/${router.query.id}`);
-    setShowModal(false);
-    setDeleteId("");
   };
 
   if (serviceError) {
@@ -191,13 +205,17 @@ export const ServiceOfficeList = () => {
                   >
                     閉じる
                   </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={handleDelete}
-                  >
-                    削除する
-                  </button>
+                  {isLoading ? (
+                    <div className="mx-10 animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+                  ) : (
+                    <button
+                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={handleClick}
+                    >
+                      削除する
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -205,6 +223,7 @@ export const ServiceOfficeList = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+      <Toaster />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useFetch } from "src/hooks/useFetch";
 import Cookie from "universal-cookie";
+import { usePromiseToast } from "src/hooks/usePromiseToast";
 
 const cookie = new Cookie();
 
@@ -25,7 +26,14 @@ export const OfficeEdit = () => {
   const [humanName, setHumanName] = useState(officeData.humanName);
   const [capacity, setCapacity] = useState(officeData.capacity);
 
+  const handleClick = async () => {
+    await promiseToast(handleUpdate());
+  };
+  const { promiseToast, Toaster } = usePromiseToast();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleUpdate = async () => {
+    setIsLoading(true);
     await fetch(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/offices/${officeData.id}/`,
       {
@@ -48,43 +56,54 @@ export const OfficeEdit = () => {
         },
       }
     ).then((res) => {
-      if (res.status === 401) {
-        alert("更新出来ませんでした");
+      if (res.ok) {
+        router.push(`/office/${officeData.id}`);
+        return new Promise((resolve, reject) => resolve("登録に成功しました"));
+      } else if (res.status === 401) {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("ログインしてください"));
+      } else {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("登録に失敗しました"));
       }
     });
-    router.push(`/office/${officeData.id}`);
   };
 
   return (
     <section className="antialiased text-gray-600 h-screen px-4">
       <div className="flex flex-col justify-center h-full">
         <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-xl border border-gray-200">
-          <header className="flex px-5 py-4 border-b border-gray-100">
+          <header className="flex items-center px-5 py-4 border-b border-gray-100">
             <div className="relative z-0 w-full group">
               <input
-                type="text"
                 name="officeName"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={officeName}
                 onChange={(e) => setOfficeName(e.target.value)}
                 required
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
               />
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 cursor-pointer text-green-500 font-extrabold"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              onClick={handleUpdate}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>{" "}
+            {isLoading ? (
+              <span className="ml-5 animate-spin h-5 w-5 border-4 border-blue-500 rounded-full border-t-transparent"></span>
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-4 h-6 w-6 cursor-pointer text-green-500 font-extrabold"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  onClick={handleClick}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </>
+            )}
           </header>
           <div className="p-3">
             <div className="overflow-x-auto">
@@ -99,13 +118,12 @@ export const OfficeEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="relative z-0 w-full group">
                         <input
-                          type="text"
                           name="postalCode"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={postalCode}
                           onChange={(e) => setPostalCode(e.target.value)}
                           maxLength={7}
                           required
+                          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />
                       </div>
                     </td>
@@ -119,12 +137,11 @@ export const OfficeEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="relative z-0 w-full group">
                         <input
-                          type="text"
                           name="address"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={address}
                           onChange={(e) => setAddress(e.target.value)}
                           required
+                          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />
                       </div>
                     </td>
@@ -138,12 +155,11 @@ export const OfficeEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="relative z-0 w-full group">
                         <input
-                          type="text"
                           name="telephoneNumber"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={telephoneNumber}
                           onChange={(e) => setTelephoneNumber(e.target.value)}
                           required
+                          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />
                       </div>
                     </td>
@@ -157,12 +173,11 @@ export const OfficeEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="relative z-0 w-full group">
                         <input
-                          type="text"
                           name="faxNumber"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={faxNumber ? faxNumber : "---"}
                           onChange={(e) => setFaxNumber(e.target.value)}
                           maxLength={11}
+                          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />
                       </div>
                     </td>
@@ -178,12 +193,11 @@ export const OfficeEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="relative z-0 w-full group">
                         <input
-                          type="email"
                           name="email"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
+                          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />
                       </div>
                     </td>
@@ -197,12 +211,11 @@ export const OfficeEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="relative z-0 w-full group">
                         <input
-                          type="text"
                           name="humanName"
-                          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={humanName}
                           onChange={(e) => setHumanName(e.target.value)}
                           required
+                          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />
                       </div>
                     </td>
@@ -213,6 +226,7 @@ export const OfficeEdit = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </section>
   );
 };

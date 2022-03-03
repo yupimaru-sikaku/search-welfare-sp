@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Cookie from "universal-cookie";
+import { usePromiseToast } from "src/hooks/usePromiseToast";
 
 const cookie = new Cookie();
 
@@ -8,7 +9,13 @@ export const OfficeCompanyCreateConfirm = (props) => {
   const router = useRouter();
   //propsで渡ってきたvaluesを受けとって入力内容確認画面で表示
   const { values, companyName } = props;
+
+  // 新規作成 → toasterの処理
   const [isLoading, setIsLoading] = useState(false);
+  const handleClick = async () => {
+    await promiseToast(createOfficeCompany());
+  };
+  const { promiseToast, Toaster } = usePromiseToast();
 
   const createOfficeCompany = async () => {
     setIsLoading(true);
@@ -29,12 +36,17 @@ export const OfficeCompanyCreateConfirm = (props) => {
         Authorization: `JWT ${cookie.get("access_token")}`,
       },
     }).then((res) => {
-      if (res.status === 401) {
-        alert("JWT Token not valid");
+      if (res.ok) {
+        router.push(`/company/${router.query.id}`);
+        return new Promise((resolve, reject) => resolve("登録に成功しました"));
+      } else if (res.status === 401) {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("ログインしてください"));
+      } else {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("登録に失敗しました"));
       }
     });
-    router.push(`/company/${router.query.id}`);
-    setIsLoading(true);
   };
 
   return (
@@ -163,7 +175,7 @@ export const OfficeCompanyCreateConfirm = (props) => {
             <button
               type="submit"
               className="block mx-auto my-10 h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              onClick={createOfficeCompany}
+              onClick={handleClick}
               disabled={isLoading}
             >
               新規作成
@@ -171,6 +183,7 @@ export const OfficeCompanyCreateConfirm = (props) => {
           </>
         )}
       </div>
+      <Toaster />
     </div>
   );
 };

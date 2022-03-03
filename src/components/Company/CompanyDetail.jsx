@@ -5,10 +5,13 @@ import { ClipBoard } from "src/components/ClipBoard";
 import Link from "next/link";
 import { useState } from "react";
 import Cookie from "universal-cookie";
+import { usePromiseToast } from "src/hooks/usePromiseToast";
 
 const cookie = new Cookie();
 
 export const CompanyDetail = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   // 会社情報データ取得
   const router = useRouter();
   const { data: companyData, error: companyError } = useFetch(
@@ -29,8 +32,14 @@ export const CompanyDetail = () => {
   );
 
   // 削除確認画面
+  const handleClick = async () => {
+    await promiseToast(handleDelete());
+  };
+  const { promiseToast, Toaster } = usePromiseToast();
+
   const [showModal, setShowModal] = useState(false);
   const handleDelete = async () => {
+    setIsLoading(true);
     await fetch(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/companies/${companyData.id}`,
       {
@@ -41,12 +50,17 @@ export const CompanyDetail = () => {
         },
       }
     ).then((res) => {
-      if (res.status === 401) {
-        alert("JWT Token not valid");
+      if (res.ok) {
+        router.push("/company");
+        return new Promise((resolve, reject) => resolve("登録に成功しました"));
+      } else if (res.status === 401) {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("ログインしてください"));
+      } else {
+        setIsLoading(false);
+        return new Promise((resolve, reject) => reject("登録に失敗しました"));
       }
     });
-    setShowModal(false);
-    router.push("/company");
   };
 
   if (companyError) {
@@ -55,7 +69,7 @@ export const CompanyDetail = () => {
 
   return (
     <>
-      <section className="antialiased text-gray-600 py-20 px-3 md:p-20">
+      <section className="antialiased text-gray-600 py-20 px-3 md:p-20 pb-10 md:pb-10">
         <div className="flex flex-col justify-center h-full">
           <div className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-xl border border-gray-200">
             <header className="flex px-5 py-4 border-b border-gray-100">
@@ -297,13 +311,17 @@ export const CompanyDetail = () => {
                   >
                     閉じる
                   </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={handleDelete}
-                  >
-                    削除する
-                  </button>
+                  {isLoading ? (
+                    <div className="mx-10 animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+                  ) : (
+                    <button
+                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={handleClick}
+                    >
+                      削除する
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -311,6 +329,7 @@ export const CompanyDetail = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+      <Toaster />
     </>
   );
 };
