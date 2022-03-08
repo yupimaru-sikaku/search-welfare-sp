@@ -17,13 +17,12 @@ export const ServiceOfficeCreate = () => {
       : null
   );
   //useFormを呼び出して使いたいメソッドを書く
-  const { register, handleSubmit, formState, getValues, methods, control } =
-    useForm({
-      // リアルタイムでエラーを表示
-      mode: "onChange",
-      // エラーを何個返すか
-      criteriaMode: "all",
-    });
+  const { register, handleSubmit, formState, getValues, control } = useForm({
+    // リアルタイムでエラーを表示
+    mode: "onChange",
+    // エラーを何個返すか
+    criteriaMode: "all",
+  });
   //isConfirmationVisibleにstateを持たせて、入力内容確認画面の表示・非表示をコントロール、初期値はfalseで非表示
   const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
   //入力内容確認画面の閉じるボタンを押した時非表示にする関数を宣言
@@ -44,7 +43,7 @@ export const ServiceOfficeCreate = () => {
           <div className="md:flex md:items-center mb-6">
             {officeIsLoading ? (
               <>
-                <div className="md:w-1/5">
+                <div className="flex md:w-1/5 md:block">
                   <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                     関連事業所
                   </label>
@@ -61,7 +60,7 @@ export const ServiceOfficeCreate = () => {
               </>
             ) : (
               <>
-                <div className="md:w-1/5">
+                <div className="flex md:w-1/5 md:block">
                   <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                     関連事業所
                   </label>
@@ -79,15 +78,19 @@ export const ServiceOfficeCreate = () => {
           </div>
 
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 サービス種別
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
               <Controller
                 name="serviceType"
                 control={control}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <Select
                     {...field}
@@ -103,9 +106,12 @@ export const ServiceOfficeCreate = () => {
           </div>
 
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 事業所番号
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -135,9 +141,12 @@ export const ServiceOfficeCreate = () => {
           </div>
 
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 定員
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -178,6 +187,7 @@ export const ServiceOfficeCreate = () => {
         {isConfirmationVisible && ( //trueの時だけ入力内容確認画面を表示
           <ServiceOfficeCreateConfirm //入力内容確認画面コンポーネント
             values={getValues()} //getValues()でフォーム全体のデータを返してくれる！！
+            formState={formState}
             hideConfirmation={hideConfirmation} //入力内容確認画面表示・非表示のstateをConfirmationに渡す
             officeName={officeData.officeName}
           />

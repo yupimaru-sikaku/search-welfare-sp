@@ -47,8 +47,8 @@ export const MainHeader = () => {
                     width={100} // 表示幅, number
                     height={30} // 表示高さ, number
                     quality={75} // 画質, number
-                    priority={false} // 表示の優先度, boolean
-                    loading={"lazy"} // 遅延ロードするかどうか, "lazy" | "eager"
+                    priority={true} // 表示の優先度, boolean
+                    loading={"eager"} // 遅延ロードするかどうか, "lazy" | "eager"
                     unoptimized={false} // 最適化するかどうか, boolean
                     layout={"fixed"} // レイアウト, "fill" | "fixed" | "intrinsic" | "responsive"
                   />

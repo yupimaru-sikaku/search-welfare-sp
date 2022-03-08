@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CompanyCreateConfirm } from "src/components/Company/CompanyCreateConfirm";
+import { getAddress } from "src/hooks/getAddress";
 
 export const CompanyCreate = () => {
+  const [zipcode, setZipcode] = useState("");
+  const [add, setAdd] = useState("");
+
+  const handleChange = useCallback(
+    async (zipcode) => {
+      const data = await getAddress(zipcode);
+      data && setAdd(data);
+    },
+    [zipcode]
+  );
   //useFormを呼び出して使いたいメソッドを書く
   const { register, handleSubmit, formState, getValues } = useForm({
     // リアルタイムでエラーを表示
@@ -28,9 +39,13 @@ export const CompanyCreate = () => {
         {/*onSubmit(入力フォームの送信ボタンがクリックされた時に発生するイベント)で入力された値をhandleSubmitで取り出す*/}
         <form onSubmit={handleSubmit(onSubmitData)} className="flex flex-col">
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 法人名
+              </label>
+
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -49,9 +64,12 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 法人番号
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -80,9 +98,12 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 郵便番号
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -93,7 +114,10 @@ export const CompanyCreate = () => {
                   required: true,
                   pattern: /^[0-9]*$/,
                 })}
-                onChange={() => setIsConfirmationVisible(false)}
+                onChange={(e) => {
+                  setIsConfirmationVisible(false);
+                  handleChange(e.target.value);
+                }}
                 maxLength={7}
               />
               {formState.errors?.postalCode?.types?.required && (
@@ -111,14 +135,18 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 住所
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
               <input
                 name="address"
+                defaultValue={add}
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 {...register("address", { required: true })}
                 onChange={() => setIsConfirmationVisible(false)}
@@ -132,9 +160,12 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 電話番号
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -165,7 +196,7 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 FAX
               </label>
@@ -197,9 +228,12 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 メールアドレス
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -227,9 +261,12 @@ export const CompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 代表者
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">

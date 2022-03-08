@@ -110,6 +110,9 @@ export const CompanyEdit = () => {
                         <div className="font-medium text-gray-800">
                           法人番号
                         </div>
+                        <div className="block bg-green-200 text-xs px-1 rounded-lg text-green-500 font-bold md:text-right ml-2">
+                          必須
+                        </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
@@ -129,6 +132,9 @@ export const CompanyEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="font-medium text-gray-800">〒</div>
+                        <div className="block bg-green-200 text-xs px-1 rounded-lg text-green-500 font-bold md:text-right ml-2">
+                          必須
+                        </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
@@ -148,6 +154,9 @@ export const CompanyEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="font-medium text-gray-800">住所</div>
+                        <div className="block bg-green-200 text-xs px-1 rounded-lg text-green-500 font-bold md:text-right ml-2">
+                          必須
+                        </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
@@ -166,6 +175,9 @@ export const CompanyEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="font-medium text-gray-800">TEL</div>
+                        <div className="block bg-green-200 text-xs px-1 rounded-lg text-green-500 font-bold md:text-right ml-2">
+                          必須
+                        </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
@@ -204,6 +216,9 @@ export const CompanyEdit = () => {
                         <div className="font-medium text-gray-800">
                           アドレス
                         </div>
+                        <div className="block bg-green-200 text-xs px-1 rounded-lg text-green-500 font-bold md:text-right ml-2">
+                          必須
+                        </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
@@ -222,6 +237,9 @@ export const CompanyEdit = () => {
                     <td className="p-2 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="font-medium text-gray-800">代表者</div>
+                        <div className="block bg-green-200 text-xs px-1 rounded-lg text-green-500 font-bold md:text-right ml-2">
+                          必須
+                        </div>
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">

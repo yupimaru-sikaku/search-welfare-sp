@@ -1,12 +1,23 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Element, scroller } from "react-scroll";
 import { OfficeCompanyCreateConfirm } from "src/components/Office/OfficeCompanyCreateConfirm";
+import { getAddress } from "src/hooks/getAddress";
 import { useFetch } from "src/hooks/useFetch";
 
 export const OfficeCompanyCreate = () => {
   const router = useRouter();
+  const [zipcode, setZipcode] = useState("");
+  const [add, setAdd] = useState("");
+
+  const handleChange = useCallback(
+    async (zipcode) => {
+      const data = await getAddress(zipcode);
+      data && setAdd(data);
+    },
+    [zipcode]
+  );
+
   const { data: companyData, isLoading: companyIsLoading } = useFetch(
     router.query.id
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-company/${router.query.id}`
@@ -39,7 +50,7 @@ export const OfficeCompanyCreate = () => {
           <div className="md:flex md:items-center mb-6">
             {companyIsLoading ? (
               <>
-                <div className="md:w-1/5">
+                <div className="flex md:w-1/5 md:block">
                   <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                     関連法人
                   </label>
@@ -56,7 +67,7 @@ export const OfficeCompanyCreate = () => {
               </>
             ) : (
               <>
-                <div className="md:w-1/5">
+                <div className="flex md:w-1/5 md:block">
                   <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                     関連法人
                   </label>
@@ -74,9 +85,12 @@ export const OfficeCompanyCreate = () => {
           </div>
 
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 事業所名
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -96,9 +110,12 @@ export const OfficeCompanyCreate = () => {
           </div>
 
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 郵便番号
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -109,7 +126,10 @@ export const OfficeCompanyCreate = () => {
                   required: true,
                   pattern: /^[0-9]*$/,
                 })}
-                onChange={() => setIsConfirmationVisible(false)}
+                onChange={(e) => {
+                  setIsConfirmationVisible(false);
+                  handleChange(e.target.value);
+                }}
                 maxLength={7}
               />
               {formState.errors?.postalCode?.types?.required && (
@@ -127,14 +147,18 @@ export const OfficeCompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 住所
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
               <input
                 name="address"
+                defaultValue={add}
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 {...register("address", { required: true })}
                 onChange={() => setIsConfirmationVisible(false)}
@@ -148,9 +172,12 @@ export const OfficeCompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 電話番号
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -181,7 +208,7 @@ export const OfficeCompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 FAX
               </label>
@@ -213,9 +240,12 @@ export const OfficeCompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 メールアドレス
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
@@ -243,9 +273,12 @@ export const OfficeCompanyCreate = () => {
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">
-            <div className="md:w-1/5">
+            <div className="flex md:w-1/5 md:block">
               <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 代表者
+              </label>
+              <label className="block text-green-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                必須
               </label>
             </div>
             <div className="md:w-2/3">
