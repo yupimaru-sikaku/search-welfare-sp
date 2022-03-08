@@ -43,7 +43,7 @@ export const ServiceEdit = () => {
       }
     ).then((res) => {
       if (res.ok) {
-        router.push("/office");
+        router.push(`/office/${serviceData.office}`);
         return new Promise((resolve, reject) => resolve("登録に成功しました"));
       } else if (res.status === 401) {
         setIsLoading(false);

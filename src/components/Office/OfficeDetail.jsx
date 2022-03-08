@@ -1,5 +1,4 @@
 import { useFetch } from "src/hooks/useFetch";
-import { useFetchArray } from "src/hooks/useFetchArray";
 import { useRouter } from "next/router";
 import { ClipBoard } from "src/components/ClipBoard";
 import Link from "next/link";

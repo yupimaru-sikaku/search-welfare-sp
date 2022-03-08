@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SWRConfig } from "swr";
 import { OfficeDetail } from "src/components/Office/OfficeDetail";
 import { ServiceOfficeList } from "src/components/Service/ServiceOfficeList";
+import { Router } from "next/router";
 
 export const getStaticPaths = async () => {
   const res = await fetch(
@@ -52,7 +53,10 @@ const OfficeId = (props) => {
         <OfficeDetail />
         <ServiceOfficeList />
       </SWRConfig>
-      <Link href={`/office/${props.officeData.id}/serviceOfficeCreate`} passHref>
+      <Link
+        href={`/office/${props.officeData.id}/serviceOfficeCreate`}
+        passHref
+      >
         <button className="block mt-10 mx-auto text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
           サービスを追加する
         </button>

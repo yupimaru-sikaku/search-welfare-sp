@@ -25,7 +25,6 @@ export const getStaticProps = async (ctx) => {
     };
   }
   const serviceData = await service.json();
-
   return {
     props: {
       fallback: {

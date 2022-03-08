@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
 
-export const ServiceOfficeList = () => {
+export const ServiceOfficeList = ({ officeId }) => {
   // サービス情報データ取得
   const router = useRouter();
   const {
