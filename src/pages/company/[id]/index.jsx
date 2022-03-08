@@ -50,13 +50,13 @@ const CompanyId = (props) => {
       <SWRConfig value={{ fallback }}>
         <CompanyDetail />
       </SWRConfig>
-      <Link href={`/company/${props.companyData.id}/officeCompanyCreate`}>
+      <Link href={`/company/${props.companyData.id}/officeCompanyCreate`} passHref>
         <button className="block mx-auto text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
           事業所を作成する
         </button>
       </Link>
 
-      <Link href="/company">
+      <Link href="/company" passHref>
         <a className="border mt-10 mx-auto w-48 border-gray-600 block rounded-lg font-bold py-4 px-6 flex items-center text-white bg-gray-500 hover:text-white hover:bg-transparent">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,10 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useFetch } from "src/hooks/useFetch";
-import Cookie from "universal-cookie";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
-
-const cookie = new Cookie();
 
 export const CompanyEdit = () => {
   const router = useRouter();
@@ -51,13 +48,12 @@ export const CompanyEdit = () => {
         }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `JWT ${cookie.get("access_token")}`,
         },
       }
     ).then((res) => {
       if (res.ok) {
         router.push(`/company/${companyData.id}`);
-        return new Promise((resolve, reject) => resolve("登録に成功しました"));
+        return new Promise((resolve) => resolve("登録に成功しました"));
       } else if (res.status === 401) {
         setIsLoading(false);
         return new Promise((resolve, reject) => reject("ログインしてください"));
@@ -87,20 +83,20 @@ export const CompanyEdit = () => {
             ) : (
               <>
                 <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="ml-4 h-6 w-6 cursor-pointer text-green-500 font-extrabold"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                onClick={handleClick}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-4 h-6 w-6 cursor-pointer text-green-500 font-extrabold"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  onClick={handleClick}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
               </>
             )}
           </header>

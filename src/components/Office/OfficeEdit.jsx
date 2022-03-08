@@ -1,10 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useFetch } from "src/hooks/useFetch";
-import Cookie from "universal-cookie";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
-
-const cookie = new Cookie();
 
 export const OfficeEdit = () => {
   const router = useRouter();
@@ -52,7 +49,6 @@ export const OfficeEdit = () => {
         }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `JWT ${cookie.get("access_token")}`,
         },
       }
     ).then((res) => {

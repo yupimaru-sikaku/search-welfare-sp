@@ -1,12 +1,9 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useFetch } from "src/hooks/useFetch";
-import Cookie from "universal-cookie";
 import Select from "react-select";
 import { serviceList } from "src/items/serviceList";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
-
-const cookie = new Cookie();
 
 export const ServiceEdit = () => {
   const router = useRouter();
@@ -42,7 +39,6 @@ export const ServiceEdit = () => {
         }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `JWT ${cookie.get("access_token")}`,
         },
       }
     ).then((res) => {

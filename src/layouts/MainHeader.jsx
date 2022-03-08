@@ -8,9 +8,7 @@ import {
   MenuIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import Cookie from "universal-cookie";
-
-const cookie = new Cookie();
+import Image from "next/image";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,16 +17,10 @@ function classNames(...classes) {
 export const MainHeader = () => {
   const router = useRouter();
 
-  const logout = (e) => {
-    e.preventDefault();
-    cookie.remove("access_token");
-    router.push("/");
-  };
   const navigation = [
     { name: "ホーム", href: "/", current: false },
     { name: "会社情報", href: "/company", current: false },
     { name: "事業所情報", href: "/office", current: false },
-    { name: "ログアウト", href: "#", current: false, onClick: logout },
   ];
 
   return (
@@ -50,21 +42,21 @@ export const MainHeader = () => {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="/images/logo_pc.png"
-                    alt="logo"
-                  />
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="/images/logo_sm.png"
-                    alt="logo"
+                  <Image
+                    src={"/images/logo_pc.png"} // ソースファイル, string
+                    width={100} // 表示幅, number
+                    height={30} // 表示高さ, number
+                    quality={75} // 画質, number
+                    priority={false} // 表示の優先度, boolean
+                    loading={"lazy"} // 遅延ロードするかどうか, "lazy" | "eager"
+                    unoptimized={false} // 最適化するかどうか, boolean
+                    layout={"fixed"} // レイアウト, "fill" | "fixed" | "intrinsic" | "responsive"
                   />
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link key={item.name} href={item.href}>
+                      <Link href={item.href} passHref key={item.name}>
                         <a
                           onClick={item.onClick}
                           className={classNames(

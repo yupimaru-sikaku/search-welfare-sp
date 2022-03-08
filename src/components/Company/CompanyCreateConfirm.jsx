@@ -1,9 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
-import Cookie from "universal-cookie";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
-
-const cookie = new Cookie();
 
 export const CompanyCreateConfirm = (props) => {
   const router = useRouter();
@@ -32,7 +29,6 @@ export const CompanyCreateConfirm = (props) => {
       }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `JWT ${cookie.get("access_token")}`,
       },
     }).then((res) => {
       if (res.ok) {

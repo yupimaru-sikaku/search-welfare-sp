@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Element, scroller } from "react-scroll";
 import { CompanyCreateConfirm } from "src/components/Company/CompanyCreateConfirm";
 
 export const CompanyCreate = () => {
@@ -19,18 +18,6 @@ export const CompanyCreate = () => {
   const onSubmitData = (data) => {
     setIsConfirmationVisible(true);
   };
-  //にゅるっと移動させる関数を宣言
-  // const scrollToTarget = (errors) => {
-  //   console.log(errors);
-  //   // エラーがあったらスクロールしない
-  //   if (!Object.keys(formState.errors).length) {
-  //     scroller.scrollTo("scrollTarget", {
-  //       duration: 800,
-  //       delay: 0,
-  //       smooth: "easeOutQuint",
-  //     });
-  //   }
-  // };
 
   return (
     <div className="px-5 py-20 bg-gray-600">
@@ -265,13 +252,11 @@ export const CompanyCreate = () => {
             <button
               type="submit"
               className="block mx-auto my-10 h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              // onClick={scrollToTarget}
             >
               入力内容を確認
             </button>
           </div>
         </form>
-        <Element name="scrollTarget" />
         {isConfirmationVisible && ( //trueの時だけ入力内容確認画面を表示
           <CompanyCreateConfirm //入力内容確認画面コンポーネント
             values={getValues()} //getValues()でフォーム全体のデータを返してくれる！！

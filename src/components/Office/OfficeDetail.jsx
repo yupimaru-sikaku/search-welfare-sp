@@ -4,10 +4,7 @@ import { useRouter } from "next/router";
 import { ClipBoard } from "src/components/ClipBoard";
 import Link from "next/link";
 import { useState } from "react";
-import Cookie from "universal-cookie";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
-
-const cookie = new Cookie();
 
 export const OfficeDetail = () => {
   // 事業所情報データ取得
@@ -33,7 +30,6 @@ export const OfficeDetail = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `JWT ${cookie.get("access_token")}`,
         },
       }
     ).then((res) => {
@@ -64,7 +60,7 @@ export const OfficeDetail = () => {
                 {officeData.officeName}
               </h2>
               <ClipBoard copyWord={officeData.officeName} />
-              <Link href={`/office/${officeData.id}/edit`}>
+              <Link href={`/office/${officeData.id}/edit`} passHref>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="block h-6 w-6 ml-5 text-blue-500 cursor-pointer"

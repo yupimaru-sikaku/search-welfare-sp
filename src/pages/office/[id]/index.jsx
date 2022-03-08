@@ -52,13 +52,13 @@ const OfficeId = (props) => {
         <OfficeDetail />
         <ServiceOfficeList />
       </SWRConfig>
-      <Link href={`/office/${props.officeData.id}/serviceOfficeCreate`}>
+      <Link href={`/office/${props.officeData.id}/serviceOfficeCreate`} passHref>
         <button className="block mt-10 mx-auto text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
           サービスを追加する
         </button>
       </Link>
 
-      <Link href="/office">
+      <Link href="/office" passHref>
         <a className="border mt-10 mx-auto w-52 border-gray-600 block rounded-lg font-bold py-4 px-6 flex items-center text-white bg-gray-500 hover:text-white hover:bg-transparent">
           <svg
             xmlns="http://www.w3.org/2000/svg"

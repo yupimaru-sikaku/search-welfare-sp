@@ -4,10 +4,7 @@ import { useRouter } from "next/router";
 import { ClipBoard } from "src/components/ClipBoard";
 import Link from "next/link";
 import { useState } from "react";
-import Cookie from "universal-cookie";
 import { usePromiseToast } from "src/hooks/usePromiseToast";
-
-const cookie = new Cookie();
 
 export const CompanyDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +43,6 @@ export const CompanyDetail = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `JWT ${cookie.get("access_token")}`,
         },
       }
     ).then((res) => {
@@ -77,7 +73,7 @@ export const CompanyDetail = () => {
                 {companyData.companyName}
               </h2>
               <ClipBoard copyWord={companyData.companyName} />
-              <Link href={`/company/${companyData.id}/edit`}>
+              <Link href={`/company/${companyData.id}/edit`} passHref>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="block h-6 w-6 ml-5 text-blue-500 cursor-pointer"
@@ -254,7 +250,7 @@ export const CompanyDetail = () => {
               <div className="text-white">
                 {officeListData.map((office) => {
                   return (
-                    <Link href={`/office/${office.id}`} key={office.id}>
+                    <Link href={`/office/${office.id}`} passHref key={office.id}>
                       <div className="m-1 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-orange-900 text-white rounded-full cursor-pointer hover:bg-orange-700">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

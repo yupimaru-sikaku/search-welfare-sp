@@ -25,7 +25,7 @@ const CompanyIndex = (props) => {
     <Layout title="法人一覧">
       <div className="flex items-center justify-center p-10 text-2xl text-white">
         <p>法人一覧</p>
-        <Link href="/company/create">
+        <Link href="/company/create" passHref>
           <button className="ml-10 text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
             新規作成
           </button>

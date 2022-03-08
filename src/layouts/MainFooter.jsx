@@ -1,18 +1,20 @@
+import Image from "next/image";
+
 export const MainFooter = () => {
   return (
     <footer className="bg-gray-500 body-font">
       <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-            <img
-              className="hidden lg:block h-8 w-auto"
-              src="/images/logo_pc.png"
-              alt="logo"
-            />
-            <img
-              className="block lg:hidden h-8 w-auto"
-              src="/images/logo_sm.png"
-              alt="logo"
+            <Image
+              src={"/images/logo_pc.png"} // ソースファイル, string
+              width={100} // 表示幅, number
+              height={30} // 表示高さ, number
+              quality={75} // 画質, number
+              priority={false} // 表示の優先度, boolean
+              loading={"lazy"} // 遅延ロードするかどうか, "lazy" | "eager"
+              unoptimized={false} // 最適化するかどうか, boolean
+              layout={"fixed"} // レイアウト, "fill" | "fixed" | "intrinsic" | "responsive"
             />
           </a>
           <p className="mt-2 text-sm text-white">

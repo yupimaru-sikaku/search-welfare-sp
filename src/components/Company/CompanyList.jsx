@@ -76,7 +76,7 @@ export const CompanyList = () => {
       <div className="p-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {searchedCompanyList &&
           searchedCompanyList.map((company) => (
-            <Link href={`/company/${company.id}`} key={company.id}>
+            <Link href={`/company/${company.id}`} passHref key={company.id}>
               <a className="block p-6 text-center bg-gray-600 rounded-lg shadow-xl hover:bg-gray-500 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <p className="font-normal text-gray-200 dark:text-gray-400">
                   {company.companyName}
