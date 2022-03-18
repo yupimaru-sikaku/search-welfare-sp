@@ -5,7 +5,7 @@ import { usePromiseToast } from "src/hooks/usePromiseToast";
 export const ServiceOfficeCreateConfirm = (props) => {
   const router = useRouter();
   //propsで渡ってきたvaluesを受けとって入力内容確認画面で表示
-  const { values, officeName, formState } = props;
+  const { values, officeName } = props;
   // 新規作成 → toasterの処理
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = async () => {

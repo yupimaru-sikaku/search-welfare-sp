@@ -28,9 +28,24 @@ export const ServiceOfficeCreate = () => {
   //入力内容確認画面の閉じるボタンを押した時非表示にする関数を宣言
   const hideConfirmation = () => setIsConfirmationVisible(false);
   //submitボタンを押した時、入力内容確認画面を表示させる
-  const onSubmitData = (data) => {
+  const onSubmitData = async (data) => {
+    const duplicateFlag = await checkDuplicate(data.officeNumber);
+    setOfficeNumberIsDuplicate(false);
+    if (duplicateFlag) {
+      setOfficeNumberIsDuplicate(true);
+      return;
+    }
     setIsConfirmationVisible(true);
   };
+
+  const checkDuplicate = async (officeNumber) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-service/?officeNumber=${officeNumber}`
+    );
+    const data = await res.json();
+    return data.length ? true : false;
+  };
+  const [officeNumberIsDuplicate, setOfficeNumberIsDuplicate] = useState(false);
 
   return (
     <div className="px-5 py-20 bg-gray-600">
@@ -88,14 +103,18 @@ export const ServiceOfficeCreate = () => {
             </div>
             <div className="md:w-2/3">
               <Controller
-                name="serviceType"
                 control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
+                name="serviceType"
+                rules={{
+                  required: true,
+                  onChange: () => setIsConfirmationVisible(false),
+                }}
+                render={({ field: { onChange, onBlur, value, name, ref } }) => (
                   <Select
-                    {...field}
                     options={SERVICE_LIST}
                     instanceId="selectbox"
+                    name={name}
+                    onChange={onChange}
                   />
                 )}
               />
@@ -130,6 +149,11 @@ export const ServiceOfficeCreate = () => {
               )}
               {formState.errors?.officeNumber?.types?.pattern && (
                 <p className="text-xs mt-1 text-rose-500">半角数字のみです</p>
+              )}
+              {officeNumberIsDuplicate && (
+                <p className="text-xs mt-1 text-rose-500">
+                  既にデータが存在しています
+                </p>
               )}
               <p className="text-xs text-gray-700 dark:text-gray-700 mt-2">
                 半角数字のみ
@@ -177,7 +201,7 @@ export const ServiceOfficeCreate = () => {
             <button
               type="submit"
               className="block mx-auto my-10 h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-              // onClick={scrollToTarget}
+              // onClick={confirmDuplicate}
             >
               入力内容を確認
             </button>

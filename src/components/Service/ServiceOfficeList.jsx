@@ -15,7 +15,7 @@ export const ServiceOfficeList = ({ officeId }) => {
     isEmpty: serviceIsEmpty,
     isLoading: serviceIsLoading,
     mutate,
-  } = useFetchArray(
+  } = useFetchArray(  
     router.query.id
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-service-office/?office=${router.query.id}`
       : null
@@ -48,7 +48,6 @@ export const ServiceOfficeList = ({ officeId }) => {
     ).then((res) => {
       if (res.ok) {
         router.push(`/office/${router.query.id}`);
-        mutate();
         setShowModal(false);
         setIsLoading(false);
         return new Promise((resolve, reject) => resolve("登録に成功しました"));
