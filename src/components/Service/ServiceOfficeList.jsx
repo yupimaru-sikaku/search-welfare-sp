@@ -15,7 +15,7 @@ export const ServiceOfficeList = ({ officeId }) => {
     isEmpty: serviceIsEmpty,
     isLoading: serviceIsLoading,
     mutate,
-  } = useFetchArray(  
+  } = useFetchArray(
     router.query.id
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-service-office/?office=${router.query.id}`
       : null

@@ -9,7 +9,7 @@ export const ServiceEdit = () => {
   const router = useRouter();
   const SERVICE_LIST = serviceList;
 
-  const { data: serviceData } = useFetch(
+  const { data: serviceData, mutate } = useFetch(
     router.query.id
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-service/${router.query.id}`
       : null
@@ -43,6 +43,7 @@ export const ServiceEdit = () => {
       }
     ).then((res) => {
       if (res.ok) {
+        mutate();
         router.push(`/office/${serviceData.office}`);
         return new Promise((resolve, reject) => resolve("登録に成功しました"));
       } else if (res.status === 401) {

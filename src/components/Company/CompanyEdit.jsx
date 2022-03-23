@@ -6,7 +6,7 @@ import { usePromiseToast } from "src/hooks/usePromiseToast";
 export const CompanyEdit = () => {
   const router = useRouter();
 
-  const { data: companyData } = useFetch(
+  const { data: companyData, mutate } = useFetch(
     router.query.id
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-company/${router.query.id}`
       : null
@@ -53,6 +53,7 @@ export const CompanyEdit = () => {
     ).then((res) => {
       if (res.ok) {
         router.push(`/company/${companyData.id}`);
+        mutate();
         return new Promise((resolve) => resolve("登録に成功しました"));
       } else if (res.status === 401) {
         setIsLoading(false);
@@ -121,7 +122,7 @@ export const CompanyEdit = () => {
                           name="companyNumber"
                           value={companyNumber}
                           onChange={(e) => setCompanyNumber(e.target.value)}
-                          maxLength={7}
+                          maxLength={13}
                           required
                           className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         />

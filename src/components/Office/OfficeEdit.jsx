@@ -6,7 +6,7 @@ import { usePromiseToast } from "src/hooks/usePromiseToast";
 export const OfficeEdit = () => {
   const router = useRouter();
 
-  const { data: officeData } = useFetch(
+  const { data: officeData, mutate } = useFetch(
     router.query.id
       ? `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-office/${router.query.id}`
       : null
@@ -53,6 +53,7 @@ export const OfficeEdit = () => {
       }
     ).then((res) => {
       if (res.ok) {
+        mutate();
         router.push(`/office/${officeData.id}`);
         return new Promise((resolve, reject) => resolve("登録に成功しました"));
       } else if (res.status === 401) {
