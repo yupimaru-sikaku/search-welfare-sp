@@ -9,7 +9,7 @@ export const Layout = ({ children, title = "デフォルトページ" }) => {
         <title>{title}</title>
       </Head>
       <MainHeader />
-      <main className="bg-gray-600 min-h-screen">{children}</main>
+      <main className="bg-gray-600">{children}</main>
       <MainFooter />
     </div>
   );
